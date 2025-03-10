@@ -60,7 +60,7 @@ class OpinionAnalyzer:
     def _handle_sparse_votes(self, matrix):
         row_means = np.nanmean(matrix, axis=1)
         for i, row in enumerate(matrix):
-            matrix[i][row == 0] = row_means[i]
+            matrix[i][np.isnan(row)] = row_means[i]
 
     def _compute_pca(self, matrix):
         masked_matrix = np.ma.masked_where(matrix == 0, matrix)
